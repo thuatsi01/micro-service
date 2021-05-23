@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  redis:
+    image: local:redis
+    build:
+      context: .
+      dockerfile: docker/redis/Dockerfile
+    ports:
+      - "6379:6379"
+    networks:
+      - internal
+  mysql:
+    image: local:mysql
+    build:
+      context: .
+      dockerfile: docker/mysql/Dockerfile
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    networks:
+      - internal
+networks:
+  internal:
+    external: true

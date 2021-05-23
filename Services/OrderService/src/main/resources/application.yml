@@ -1,0 +1,24 @@
+server:
+  port: ${ORDER_PORT:10091}
+#  servlet:
+#    context-path: /v1/order-service
+
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:mysql://${DATABASE_NAME:localhost}:3306/order
+    username: ${DATABASE_USER_NAME:root}
+    password: ${DATABASE_USER_PASSWORD:root}
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    healthCheckUrlPath: /production-support/health
+    statusPageUrlPath: /production-support/info

@@ -1,0 +1,22 @@
+server:
+  port: ${API_GATEWAY_PORT:10001}
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    hostname: ${CUSTOMER_HOST_NAME:localhost}
+
+spring:
+  application:
+    name: api-gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
