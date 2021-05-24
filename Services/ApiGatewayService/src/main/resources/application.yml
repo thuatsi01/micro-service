@@ -20,3 +20,11 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+          filters:
+            - name: RewritePath
+              args:
+                regexp: "serviceId.toLowerCase() + '/(?<remaining>.*)'"
+                replacement: "'/${remaining}'"
+            - name: AuthenticationJwtToken
+              args:
+                enable: true

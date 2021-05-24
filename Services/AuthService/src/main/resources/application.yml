@@ -1,0 +1,35 @@
+server:
+  port: ${AUTH_PORT:9999}
+#  servlet:
+#    context-path: /v1/auth-service
+
+grpc:
+  server:
+    port: ${AUTH_GRPC_PORT:56565}
+
+logging:
+  level:
+    root: info
+
+jwt:
+  expire_time: ${AUTH_JWT_EXPIRE_TIME:10}
+  secret: ${AUTH_JWT_SECRET:ONYdyx3nKr}
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:mysql://${DATABASE_NAME:localhost}:3306/auth
+    username: ${DATABASE_USER_NAME:root}
+    password: ${DATABASE_USER_PASSWORD:root}
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    hostname: ${CUSTOMER_HOST_NAME:localhost}

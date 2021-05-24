@@ -10,7 +10,7 @@ spring:
     url: jdbc:mysql://${DATABASE_NAME:localhost}:3306/shipping
     username: ${DATABASE_USER_NAME:root}
     password: ${DATABASE_USER_PASSWORD:root}
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
