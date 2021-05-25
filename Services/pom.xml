@@ -16,6 +16,7 @@
     </properties>
 
     <modules>
+        <module>Common</module>
         <module>EurekaService</module>
         <module>AuthService</module>
         <module>ApiGatewayService</module>

@@ -58,9 +58,11 @@ services:
     links:
       - "eureka:eureka"
       - "mysql:mysql"
+      - "auth:auth"
     environment:
       - EUREKA_HOST_NAME=eureka
       - DATABASE_NAME=mysql
+      - AUTH_GRPC_HOST=auth
     networks:
       - internal
   order:

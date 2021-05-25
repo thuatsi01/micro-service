@@ -7,17 +7,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ShippingService" />
         <module name="CustomerService" />
-        <module name="OrderService" />
         <module name="ApiGatewayService" />
         <module name="EurekaService" />
         <module name="AuthService" />
+        <module name="ShippingService" />
+        <module name="OrderService" />
+        <module name="Common" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ApiGatewayService" target="11" />
       <module name="AuthService" target="11" />
+      <module name="Common" target="11" />
       <module name="CustomerService" target="11" />
       <module name="EurekaService" target="11" />
       <module name="OrderService" target="11" />
@@ -29,6 +31,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGatewayService" options="-parameters" />
       <module name="AuthService" options="-parameters" />
+      <module name="Common" options="" />
       <module name="CustomerService" options="-parameters" />
       <module name="EurekaService" options="-parameters" />
       <module name="OrderService" options="-parameters" />
