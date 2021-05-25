@@ -17,6 +17,7 @@
 
     <modules>
         <module>EurekaService</module>
+        <module>AuthService</module>
         <module>ApiGatewayService</module>
         <module>CustomerService</module>
         <module>OrderService</module>

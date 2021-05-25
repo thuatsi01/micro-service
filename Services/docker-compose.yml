@@ -6,8 +6,6 @@ services:
     build:
       context: .
       dockerfile: docker/redis/Dockerfile
-    ports:
-      - "6379:6379"
     networks:
       - internal
   mysql:
@@ -15,11 +13,106 @@ services:
     build:
       context: .
       dockerfile: docker/mysql/Dockerfile
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
+    command:
+      mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     ports:
       - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - internal
+  eureka:
+    image: local:eureka
+    build:
+      context: .
+      dockerfile: docker/eureka/Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - internal
+  auth:
+    image: local:auth
+    build:
+      context: .
+      dockerfile: docker/auth/Dockerfile
+    depends_on:
+      - eureka
+      - mysql
+      - redis
+    links:
+      - "eureka:eureka"
+      - "mysql:mysql"
+    environment:
+      - EUREKA_HOST_NAME=eureka
+      - DATABASE_NAME=mysql
+    networks:
+      - internal
+  customer:
+    image: local:customer
+    build:
+      context: .
+      dockerfile: docker/customer/Dockerfile
+    depends_on:
+      - eureka
+      - mysql
+    links:
+      - "eureka:eureka"
+      - "mysql:mysql"
+    environment:
+      - EUREKA_HOST_NAME=eureka
+      - DATABASE_NAME=mysql
+    networks:
+      - internal
+  order:
+    image: local:order
+    build:
+      context: .
+      dockerfile: docker/order/Dockerfile
+    depends_on:
+      - eureka
+      - mysql
+    links:
+      - "eureka:eureka"
+      - "mysql:mysql"
+    environment:
+      - EUREKA_HOST_NAME=eureka
+      - DATABASE_NAME=mysql
+    networks:
+      - internal
+  shipping:
+    image: local:shipping
+    build:
+      context: .
+      dockerfile: docker/shipping/Dockerfile
+    depends_on:
+      - eureka
+      - mysql
+    links:
+      - "eureka:eureka"
+      - "mysql:mysql"
+    environment:
+      - EUREKA_HOST_NAME=eureka
+      - DATABASE_NAME=mysql
+    networks:
+      - internal
+  gateway:
+    image: local:gateway
+    build:
+      context: .
+      dockerfile: docker/gateway/Dockerfile
+    ports:
+      - "10001:10001"
+    depends_on:
+      - eureka
+    links:
+      - "eureka:eureka"
+      - "auth:auth"
+      - "customer:customer"
+      - "order:order"
+      - "shipping:shipping"
+    environment:
+      - EUREKA_HOST_NAME=eureka
+      - AUTH_GRPC_HOST=auth
     networks:
       - internal
 networks:

@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_multiple_files = true;
+
+package com.example.authservice.grpc;
+
+message TokenVerifyRequest {
+  string token = 1;
+}
+
+message TokenVerifyResponse {
+  bool isExpired = 1;
+  int64 userId = 2;
+  string role = 3;
+}
+
+service TokenVerifyService {
+  rpc verify(TokenVerifyRequest) returns (TokenVerifyResponse);
+}

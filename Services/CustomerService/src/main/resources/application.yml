@@ -10,7 +10,7 @@ spring:
     url: jdbc:mysql://${DATABASE_NAME:localhost}:3306/customer
     username: ${DATABASE_USER_NAME:root}
     password: ${DATABASE_USER_PASSWORD:root}
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -18,8 +18,6 @@ spring:
     generate-ddl: true
 
 eureka:
-  instance:
-    appname: ${spring.application.name}
-    healthCheckUrlPath: /production-support/health-check
-    statusPageUrlPath: /production-support/info
-    hostname: ${CUSTOMER_HOST_NAME:localhost}
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST_NAME:localhost}:8761/eureka
