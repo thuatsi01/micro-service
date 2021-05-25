@@ -1,26 +1,28 @@
 package com.example.apigatewayservice.grpc;
 
+import com.example.apigatewayservice.configuration.grpc.AuthGrpcManagedChannel;
 import com.example.authservice.grpc.TokenVerifyRequest;
 import com.example.authservice.grpc.TokenVerifyServiceGrpc;
 import io.grpc.ManagedChannelBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthGrpcService {
 
+    private final AuthGrpcManagedChannel authGrpcManagedChannel;
+
+    public AuthGrpcService(AuthGrpcManagedChannel authGrpcManagedChannel) {
+        this.authGrpcManagedChannel = authGrpcManagedChannel;
+    }
+
     public AuthGrpcResponse getAuthGrpc(String token) {
-        var channel = ManagedChannelBuilder.forAddress("localhost", 56565)
-                .usePlaintext()
-                .build();
-        var stub = TokenVerifyServiceGrpc.newBlockingStub(channel);
+        var stub = TokenVerifyServiceGrpc.newBlockingStub(authGrpcManagedChannel.getManagedChannel());
         var authGrpcResponse = stub.verify(
-                TokenVerifyRequest.newBuilder()
-                        .setToken(token)
-                        .build()
+                TokenVerifyRequest.newBuilder().setToken(token).build()
         );
-        channel.shutdown();
         return AuthGrpcResponse.of(authGrpcResponse.getIsExpired(), authGrpcResponse.getUserId(), authGrpcResponse.getRole());
     }
 

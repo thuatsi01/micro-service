@@ -122,6 +122,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>gateway-service</finalName>
     </build>
     <repositories>
         <repository>

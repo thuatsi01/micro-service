@@ -30,6 +30,6 @@ spring:
     generate-ddl: true
 
 eureka:
-  instance:
-    appname: ${spring.application.name}
-    hostname: ${CUSTOMER_HOST_NAME:localhost}
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST_NAME:localhost}:8761/eureka

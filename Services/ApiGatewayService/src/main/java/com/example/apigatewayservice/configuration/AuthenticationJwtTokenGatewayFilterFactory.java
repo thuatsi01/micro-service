@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 public class AuthenticationJwtTokenGatewayFilterFactory implements GatewayFilterFactory<AuthenticationJwtTokenGatewayFilterFactory.Config> {
 
     private final static String BEARER_TOKEN_PREFIX = "Bearer ";
+    private final static String AUTHORIZATION_FLAG = "Authorization";
 
     @Autowired
     private AuthGrpcService authGrpcService;
@@ -66,11 +67,11 @@ public class AuthenticationJwtTokenGatewayFilterFactory implements GatewayFilter
     }
 
     private String getAuthHeader(ServerHttpRequest request) {
-        return request.getHeaders().getOrEmpty("Authorization").get(0);
+        return request.getHeaders().getOrEmpty(AUTHORIZATION_FLAG).get(0);
     }
 
     private boolean isAuthMissing(ServerHttpRequest request) {
-        return !request.getHeaders().containsKey("Authorization");
+        return !request.getHeaders().containsKey(AUTHORIZATION_FLAG);
     }
 
     private boolean isValidToken(String token) {

@@ -97,6 +97,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>customer-service</finalName>
     </build>
     <repositories>
         <repository>

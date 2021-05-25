@@ -96,6 +96,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>shipping-service</finalName>
     </build>
     <repositories>
         <repository>
