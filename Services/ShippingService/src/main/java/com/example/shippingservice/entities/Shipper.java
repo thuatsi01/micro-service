@@ -13,6 +13,12 @@ public class Shipper {
     @Id // The id will be got from identity provider
     private Long id;
 
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "address")
+    private String address;
+
     @Column(name = "status", nullable = false)
     private Short status;
 
@@ -33,6 +39,22 @@ public class Shipper {
 
     public void setStatus(Short status) {
         this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Timestamp getCreatedDate() {

@@ -21,3 +21,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://${EUREKA_HOST_NAME:localhost}:8761/eureka
+
+#Grpc
+grpc-service:
+  auth-service:
+    host-name: ${AUTH_GRPC_HOST:localhost}
+    port: ${AUTH_GRPC_PORT:56565}
