@@ -27,3 +27,7 @@ grpc-service:
   auth-service:
     host-name: ${AUTH_GRPC_HOST:localhost}
     port: ${AUTH_GRPC_PORT:56565}
+
+logging:
+  level:
+    root: info
