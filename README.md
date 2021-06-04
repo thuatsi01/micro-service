@@ -58,5 +58,7 @@ cd Services
 
 mvn clean package -DskipTests
 
+docker network create internal
+
 docker-compose up --build
 ```
