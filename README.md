@@ -34,8 +34,19 @@ We're using [gRPC](https://grpc.io/) to communicate between each service.
 
 ## Installation
 
-1.  Connect to mysql database in local with account (root/root)
-2.  Run 
+1. Debug
+
+```bash
+cd Services
+
+docker network create internal
+
+docker-compose -f docker-compose.override.yml up
+```
+
+Initial database:
+- Connect to mysql database in local with account (root/root)
+- Run 
 ```bash
 -- Clear data
 DROP SCHEMA IF EXISTS `auth`;
@@ -48,11 +59,42 @@ CREATE SCHEMA `auth`;
 CREATE SCHEMA `customer`;
 CREATE SCHEMA `order`;
 CREATE SCHEMA `shipping`;
+```
+
+After that, start services with priority by IntelliJ IDEA
+- EurekaServiceApplication
+- ApiGatewayServiceApplication
+- AuthServiceApplication
+- CustomerApplication, OrderApplication, ShippingServiceApplication
+
+2. Run the services in local
+Create database
+```bash
+
+docker network create internal
+
+docker-compose -f docker-compose.override.yml up
 
 ```
 
-3. Run the services in local
+Initial database:
+- Connect to mysql database in local with account (root/root)
+- Run 
+```bash
+-- Clear data
+DROP SCHEMA IF EXISTS `auth`;
+DROP SCHEMA IF EXISTS `customer`;
+DROP SCHEMA IF EXISTS `order`;
+DROP SCHEMA IF EXISTS `shipping`;
 
+-- Create schema
+CREATE SCHEMA `auth`;
+CREATE SCHEMA `customer`;
+CREATE SCHEMA `order`;
+CREATE SCHEMA `shipping`;
+```
+
+Run with private network by Docker
 ```bash
 cd Services
 
