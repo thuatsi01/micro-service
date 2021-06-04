@@ -68,6 +68,7 @@ After that, start services with priority by IntelliJ IDEA
 - CustomerApplication, OrderApplication, ShippingServiceApplication
 
 2. Run the services in local
+
 Create database
 ```bash
 
